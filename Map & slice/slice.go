@@ -8,12 +8,11 @@ import (
 func main() {
 	numbers := []int{1, 2, 3, 4, 5}
 	number := numbers[:3]
-	copy_func(number)
-	type_access()
 	dict := make(map[string]string)
 	dict["name"] = "Vimal"
 	dict["age"] = "24"
 	fmt.Println(dict["name"])
+
 	//For loop used with range
 	for _, i := range numbers {
 		fmt.Println("With range : ", i)
@@ -31,6 +30,14 @@ func main() {
 		}
 		i++
 	}
+	copy_func(number)
+	type_access()
+	variadic_func()
+
+	//Calling interface
+	var iFe interFace
+	iFe = Go{Name: "Vimal"}
+	iFe.printName()
 }
 
 //Copy
@@ -61,4 +68,30 @@ func type_access() {
 	obj.Name = "Vimal"
 	obj.age = "24"
 	fmt.Printf("Name : %v \n", obj.Name)
+}
+
+//Interface is a custom type that is used to specify a set of one or more method signatures and the interface is abstract, so you are not allowed to create an instance of the interface.
+type interFace interface {
+	printName()
+}
+
+// Variadic function is like spread operator in JS
+func variadic_func() {
+	fmt.Println(calculation("Rectangle", 10, 20))
+
+}
+
+func calculation(shape string, values ...int) int {
+	area := 1
+	for _, value := range values {
+		if shape == "Rectangle" {
+			area *= value
+		}
+	}
+	return area
+
+}
+
+func (name Go) printName() {
+	fmt.Println("Show name using interface method and struct type : ", name.Name)
 }
