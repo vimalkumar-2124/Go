@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 //function to print hello
 func printHello(ch chan int) {
@@ -9,7 +12,9 @@ func printHello(ch chan int) {
 }
 
 func main() {
-
+	fmt.Println("Time in s : ", time.Second)
+	end_time := time.Now().Unix()
+	fmt.Println(end_time)
 	//make a channel. You need to use the make function to create channels.
 	//channels can also be buffered where you can specify size. eg: ch := make(chan int, 2)
 	ch := make(chan int)
