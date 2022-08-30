@@ -3,16 +3,28 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"os"
 
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/joho/godotenv"
 )
 
 type OutputDb struct {
 	name string `json:"name"`
 }
 
+func envVariable(key string) string {
+	err := godotenv.Load(".env")
+	if err != nil {
+		fmt.Println("Not able to find .env file")
+	}
+	return os.Getenv(key)
+}
 func main() {
-	db, err := sql.Open("mysql", "root:Abcdefghij2124$@tcp(127.0.0.1:3306)/students")
+	dbUser := envVariable("DB_USER")
+	dbPass := envVariable("DB_PASS")
+	// fmt.Printf("Pass : %s", dbUser)
+	db, err := sql.Open("mysql", dbUser+":"+dbPass+"@tcp(127.0.0.1:3306)/students")
 	if err != nil {
 		panic(err.Error())
 	}
