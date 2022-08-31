@@ -1,0 +1,8 @@
+version: "3.7"
+services:
+  go_mysql:
+    image : vimal2124/go_mysql:latest
+    # environment:
+    # - DB_USER="${DB_USER}"
+    # - DB_PASS="${DB_PASS}"
+

@@ -6,7 +6,6 @@ import (
 	"os"
 
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/joho/godotenv"
 )
 
 type OutputDb struct {
@@ -14,10 +13,10 @@ type OutputDb struct {
 }
 
 func envVariable(key string) string {
-	err := godotenv.Load(".env")
-	if err != nil {
-		fmt.Println("Not able to find .env file")
-	}
+	// err := godotenv.Load(".env")
+	// if err != nil {
+	// 	fmt.Println("Not able to find .env file")
+	// }
 	return os.Getenv(key)
 }
 func main() {
