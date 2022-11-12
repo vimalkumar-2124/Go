@@ -1,0 +1,1334 @@
+package main
+import "fmt"
+
+// var i int = 45
+
+func main() {
+	//	var i int = 43
+	//	fmt.Printf("%T\n", i)
+	//	var j float64
+	//	j = float64(i)
+	//	fmt.Printf("%v,%T\n", j, j)
+	//	var k string
+	//	k = strconv.Itoa(i)
+	//	fmt.Printf("%v,%T\n", k, k)
+	//	x := "245"
+	//	y, e := strconv.Atoi(x)
+	//	if e == nil {
+	//		fmt.Printf("%T %v\n", y, y)
+	//		fmt.Print(e)
+	//	}
+
+	//var n int8 = 127
+	//fmt.Printf("%T,%v", n, n)
+
+	//a := 13.4
+	//b := 4.5
+	//c := a * b
+	//fmt.Printf("%T %v", c, c)
+
+	//a := 1 + 2i
+	//b := 2 + 2.5i
+	//fmt.Println(a + b)
+	//fmt.Println(a - b)
+	//fmt.Println(a * b)
+	//fmt.Println(a / b)
+
+	var n complex128 = complex(4, 5)
+	fmt.Printf("%v %T", n, n)
+}
+
+-------------------------------------------------------------------------------------------------------
+
+
+package main
+
+import (
+	"fmt"
+	"reflect"
+)
+
+func main() {
+	//	var s string = "this is Golang"
+	//	var s1 string = " But I like Python"
+	//	b := []byte(s)
+	//	fmt.Printf("%v %T\n", s+s1, string(s+s1))
+	//	fmt.Printf("%v,%T\n", b, b)
+
+	//	var r rune = 'a'
+	//	fmt.Printf("%v %T", r, r)
+
+	rune1 := 'B'
+	rune2 := 'g'
+	rune3 := '\a'
+
+	fmt.Printf("Rune 1: %c; Unicode: %U; Type: %T", rune1,rune1,rune1)
+
+	fmt.Printf("\nRune 2: %c; Unicode: %U; Type: %s", rune2,
+		rune2, reflect.TypeOf(rune2))
+
+	fmt.Printf("\nRune 3: Unicode: %U; Type: %s", rune3,
+		reflect.TypeOf(rune3))
+
+}
+
+---------------------------------------------------------------------------------------
+
+Constants iota
+
+package main
+
+import "fmt"
+
+const (
+	a = iota
+	b
+	c
+)
+
+const (
+	d = iota
+)
+
+func main() {
+	//	const myConstant int = 42
+	//	fmt.Println(myConstant)
+	//	fmt.Printf("%v %T", myConstant, myConstant)
+	fmt.Println(a)
+	fmt.Println(b)
+	fmt.Println(c)
+	fmt.Println(d)
+}
+
+
+package main
+
+import "fmt"
+
+const (
+	_  = iota
+	KB = 1 << (10 * iota)
+	MB
+	GB
+)
+
+func main() {
+	fmt.Printf("%v %v %v", KB, MB, GB)
+}
+
+--------------------------------------------------------------------------------------------
+ARRAY
+
+package main
+
+import "fmt"
+
+func main() {
+	grades := [...]int{12, 13, 14}
+	fmt.Printf("Grades:%v\n", grades)
+	var students [3]string
+	students[0] = "Tej"
+	fmt.Printf("students:%v", students)
+	fmt.Printf("\nGrades:%v\n", len(grades))
+	var identityMatrix [3][3]int = [3][3]int{[3]int{1, 0, 0}, [3]int{0, 1, 0}, [3]int{0, 0, 1}}
+	fmt.Println(identityMatrix)
+
+	marks := &grades
+	marks[1] = 7
+	fmt.Println(marks)
+	fmt.Println(grades)
+
+}
+-------------------------------------------------------------------------------------------------
+Slice
+
+package main
+
+import "fmt"
+
+func main() {
+	a := []int{1, 2, 3}
+	b := a
+	b[1] = 5
+	fmt.Println(b)
+	fmt.Printf("%v Length:%v\n", a, len(a))
+	fmt.Printf("Capacity %v\n", cap(a))
+
+	slic := []int{1, 2, 3, 4, 4, 5, 65, 7, 8, 9}
+	i := slic[:3]
+	j := slic[3:6]
+	k := slic[6:]
+	fmt.Printf("%v %v %v\n", i, j, k)
+
+	h := []int{}
+	fmt.Println(h)
+	fmt.Println(len(h))
+	fmt.Println(cap(h))
+	h = append(h, 1)
+	fmt.Println(h)
+	fmt.Println(len(h))
+	fmt.Println(cap(h))
+	h = append(h, []int{2, 3, 4, 5}...)
+	fmt.Println(h)
+	fmt.Println(len(h))
+	fmt.Println(cap(h))
+
+	hx := append(h[:2], h[3:]...)
+	fmt.Println(hx)
+	fmt.Println(h)
+
+}
+---------------------------------------------------------------------------------------------------
+Maps
+
+package main
+
+import "fmt"
+
+func main() {
+	statePopulations := make(map[string]int)
+	statePopulations = map[string]int{
+		"California":   39250017,
+		"Texas":        39250016,
+		"Florida":      39250217,
+		"New York":     12250017,
+		"Pennsylvania": 19250017,
+		"Illinois":     12250347,
+	}
+	statePopulations["Boston"] = 12345667
+	delete(statePopulations, "Boston")
+	fmt.Println(statePopulations)
+
+	//	_, ok := statePopulations["Illinois"]
+	//	fmt.Println(ok)
+
+	//	fmt.Println(len(statePopulations))
+
+	sp := statePopulations
+	delete(sp, "Texas")
+	fmt.Println(sp)
+	fmt.Println(statePopulations)
+}
+----------------------------------------------------------------------------------------------------------
+Struct
+
+package main
+
+import "fmt"
+
+func main() {
+	aDoc := struct {
+		name string
+		age  int
+	}{age: 21, name: "Tej"}
+	fmt.Println(aDoc)
+
+	anotherDoc := &aDoc
+	anotherDoc.name = "Nivi"
+	anotherDoc.age = 22
+	fmt.Println(anotherDoc)
+	fmt.Println(aDoc)
+}
+-----------------------------------------------------------------------------------------------------------
+Embedding
+
+package main
+
+import "fmt"
+
+type Animal struct {
+	Name   string
+	Origin string
+}
+
+type Bird struct {
+	Animal
+	SpeedKPH float32
+	CanFly   bool
+}
+
+func main() {
+	//	b := Bird{}
+	//	b.Name = "Crow"
+	//	b.Origin = "India"
+	//	b.SpeedKPH = 4.5
+	//	b.CanFly = true
+	//	fmt.Println(b)
+
+	b := Bird{
+		Animal:   Animal{Name: "Crow", Origin: "India"},
+		SpeedKPH: 30,
+		CanFly:   false,
+	}
+	fmt.Println(b.Name)
+
+}
+------------------------------------------------------------------------------------
+Tags
+
+package main
+
+import (
+	"fmt"
+	"reflect"
+)
+
+type Animal struct {
+	Name   string `required max:"100"`
+	Origin string
+}
+
+func main() {
+	t := reflect.TypeOf(Animal{})
+	field, _ := t.FieldByName("Name")
+	fmt.Println(field.Tag)
+}
+-----------------------------------------------------------------------------------------------
+Control Flow
+
+if Statement
+
+package main
+
+import (
+	"fmt"
+)
+
+var i int
+
+func main() {
+
+	sw := map[string]int{
+		"Seven Wonders": 7,
+		"Dhoni":         7,
+		"Days":          7}
+	if num, ok := sw["Dhoni"]; ok {
+		fmt.Println("The Greatest Finisher", num)
+	} else {
+		fmt.Println("Mahi the great")
+	}
+
+	a := 21
+	b := 22c
+
+	if a > b {
+		fmt.Println("a is older than b")
+	} else if a < b {
+		fmt.Println("b is older than b")
+	} else {
+		fmt.Println("Both are equal")
+	}
+
+}
+
+---------------------------------------------------------------------------------------
+Switch Statement
+
+Example 1:
+package main
+
+import "fmt"
+
+func main() {
+	i := 1 + 2
+	switch {
+	case i > 1:
+		fmt.Println("!")
+		fallthrough
+	case i > 2:
+		fmt.Println("!!")
+	default:
+		fmt.Println("!!!")
+	}
+}
+
+Example 2:
+package main
+
+import "fmt"
+
+func main() {
+	var i interface{} = [3]int{}
+	fmt.Printf("%v %T\n", i, i)
+	switch i.(type) {
+	case int:
+		fmt.Println("i is an int")
+	case float64:
+		fmt.Println("i is an float")
+	case string:
+		fmt.Println("i is an string")
+	case [3]int:
+		fmt.Println("i is [3]int")
+	default:
+		fmt.Println("i is another type")
+	}
+}
+---------------------------------------------------------------------------------------------------
+For Loop
+
+package main
+
+import "fmt"
+
+func main() {
+Loop:
+	for i := 1; i <= 3; i++ {
+		for j := 1; j <= 3; j++ {
+			fmt.Println(i * j)
+			if i*j >= 3 {
+				break Loop
+			}
+		}
+	}
+	s := []int{1, 2, 3}
+	for k, v := range s {
+		fmt.Println(k, v)
+	}
+
+	letters := "Hello,World"
+	for k, v := range letters {
+		fmt.Println(k, string(v))
+	}
+
+}
+---------------------------------------------------------------------------------------------------
+Defer
+
+package main
+
+import "fmt"
+
+func main() {
+	a := "start"
+	defer fmt.Println(a)
+	a = "end"
+}
+----------------------------------------------------------------------------------------------------
+Panic-like an exception
+
+-------------------------------------------------------
+Pointers
+
+package main
+
+import (
+	"fmt"
+	"reflect"
+)
+
+type mystruct struct {
+	a int
+}
+
+func main() {
+	var a int = 3
+	var b *int = &a
+	fmt.Println(a)
+	fmt.Println(*b)
+
+	e := [3]int{1, 2, 3}
+	f := &e[0]
+	g := &e[1]
+	fmt.Printf("%v %p %p\n", e, f, g)
+	fmt.Println(reflect.TypeOf(f))
+
+	var ms *mystruct
+	ms = &mystruct{a: 42}
+	fmt.Println(ms)
+
+}
+---------------------------------------------------------------------------------------
+Functions
+
+Example-1
+
+package main
+
+import "fmt"
+
+func A(values ...int) *int { // variadic parameters
+	fmt.Println(values)
+	result := 0
+	for _, v := range values {
+		result += v
+	}
+	return &result
+}
+
+func B() {
+
+}
+
+func main() {
+	resul := A(1, 2, 3, 4, 5)
+	fmt.Println(*resul)
+	fmt.Println(resul)
+}
+
+
+Example-2
+
+package main
+
+import "fmt"
+
+func A(values ...int) (result int) { // variadic parameters
+	fmt.Println(values)
+	for _, v := range values {
+		result += v
+	}
+	return
+}
+
+func B() {
+
+}
+
+func main() {
+	resul := A(1, 2, 3, 4, 5)
+	fmt.Println(resul)
+}
+
+Example-3
+
+package main
+
+import "fmt"
+
+func divide(a, b float64) (float64, error) {
+	if b == 0.0 {
+		return 0.0, fmt.Errorf("Cannot divide by zero")
+	}
+	return a / b, nil
+}
+
+func B() {
+
+}
+
+func main() {
+	resul, err := divide(4.0, 5.0)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(resul)
+}
+
+Example-4 Anonymous Function
+
+package main
+
+import "fmt"
+
+func main() {
+	func() {
+		fmt.Println("Hello")
+	}()
+
+	f := func() {
+		fmt.Println("Hello")
+	}
+	f()
+
+	var fu func() = func() { // function as a type	
+		fmt.Println("Hello")
+	}
+	fu()
+
+}
+
+Example-5 Methods
+
+package main
+
+import "fmt"
+
+func main() {
+	g := abc{
+		i: "Hello",
+		j: "My name is...",
+	}
+	h := abc{
+		i: "Hello1",
+		j: "We are...",
+	}
+	g.greet()
+	h.greet()
+}
+
+type abc struct {
+	i string
+	j string
+}
+
+func (c abc) greet() {
+	fmt.Println(c.i, c.j)
+}
+--------------------------------------------------------------------------------------------------
+Interfaces
+
+package main
+
+import "fmt"
+
+type calc interface {
+	area() float64
+	volume() float64
+}
+
+type mystruct struct {
+	radius float64
+	height float64
+}
+
+func (m mystruct) area() float64 {
+	return 2*m.radius*m.height + 2*3.14*m.radius*m.radius
+}
+
+func (m mystruct) volume() float64 {
+	return 3.14 * m.radius * m.radius * m.height
+}
+
+func main() {
+	var c calc
+	c = mystruct{10, 20}
+	fmt.Println("Area of tank :", c.area())
+	fmt.Println("Volume of tank:", c.volume())
+}
+
+Example -2
+// Go program to illustrate
+// the type assertion
+package main
+
+import "fmt"
+
+func myfun(a interface{}) {
+
+	// Extracting the value of a
+	val := a.(string)
+	fmt.Println("Value: ", val)
+}
+func main() {
+
+	var val interface {
+	} = "GeeksforGeeks"
+
+	myfun(val)
+}
+
+Example-3
+package main
+  
+import "fmt"
+  
+func myfun(a interface{}) {
+    value, ok := a.(float64)
+    fmt.Println(value, ok)
+}
+func main() {
+  
+    var a1 interface {
+    } = 98.09
+  
+    myfun(a1)
+  
+    var a2 interface {
+    } = "Tej"
+  
+    myfun(a2)
+}
+
+Type Switch: In Go interface, type switch is used to compare the concrete type of an interface with the multiple types provide in the case statements. 
+It is similar to type assertion with only one difference, i.e, case specifies types, not the values. You can also compare a type to the interface type. 
+As shown in the below example:
+Example:
+
+// Go program to illustrate type switch
+package main
+  
+import "fmt"
+  
+func myfun(a interface{}) {
+  
+    // Using type switch
+    switch a.(type) {
+  
+    case int:
+        fmt.Println("Type: int, Value:", a.(int))
+    case string:
+        fmt.Println("\nType: string, Value: ", a.(string))
+    case float64:
+        fmt.Println("\nType: float64, Value: ", a.(float64))
+    default:
+        fmt.Println("\nType not found")
+    }
+}
+  
+func main() {
+  
+    myfun("Tej")
+    myfun(67.9)
+    myfun(true)
+}
+---------------------------------------------------------------------------
+GoRoutines
+package main
+
+import "fmt"
+
+func display(str string) {
+	for w := 0; w < 6; w++ {
+		fmt.Println(str)
+	}
+}
+
+func main() {
+
+	// Calling Goroutine
+	go display("Welcome")
+
+	// Calling normal function
+	display("GeeksforGeeks")
+}
+
+In the above example, we simply create a display() function and then call this function in two different ways 
+first one is a Goroutine, i.e. go display(“Welcome”) and another one is a normal function, i.e. display(“GeeksforGeeks”). 
+But there is a problem, it only displays the result of the normal function that does not display the result of Goroutine because 
+when a new Goroutine executed, the Goroutine call return immediately. The control does not wait for Goroutine to complete their execution 
+just like normal function they always move forward to the next line after the Goroutine call and ignores the value returned by the Goroutine. 
+So, to executes a Goroutine properly, we made some changes in our program as shown in the below code:
+
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func display(str string) {
+	for w := 0; w < 6; w++ {
+		fmt.Println(str)
+		time.Sleep(1 * time.Second)
+	}
+}
+
+func main() {
+
+	// Calling Goroutine
+	go display("Welcome")
+
+	// Calling normal function
+	display("GeeksforGeeks")
+}
+
+Anonymous GoRoutine
+
+package main
+  
+import (
+    "fmt"
+    "time"
+)
+  
+// Main function
+func main() {
+  
+    fmt.Println("Welcome!! to Main function")
+  
+    // Creating Anonymous Goroutine
+    go func() {
+  
+        fmt.Println("Welcome!! to GeeksforGeeks")
+    }()
+  
+    time.Sleep(1 * time.Second)
+    fmt.Println("GoodBye!! to Main function")
+}
+
+-------------------------------------------------------------------------------------------
+Channels
+
+In Go language, a channel is a medium through which a goroutine communicates with another goroutine and 
+this communication is lock-free. Or in other words, a channel is a technique which allows to let one goroutine to send data to another goroutine. 
+By default channel is bidirectional, means the goroutines can send or receive data through the same channel.
+
+Example-1
+package main
+
+import (
+	"fmt"
+	"sync"
+)
+
+var wg = sync.WaitGroup{}
+
+func main() {
+	ch := make(chan int)
+	for i := 0; i < 5; i++ {
+		wg.Add(2)
+		go func() { //receive data from channel
+			i := <-ch
+			fmt.Println(i)
+			wg.Done()
+		}()
+		go func() { //send data to channel
+			ch <- 42
+			wg.Done()
+		}()
+	}
+	wg.Wait()
+}
+
+Example-2 //Buffered Channels
+
+package main
+
+import (
+	"fmt"
+	"sync"
+)
+
+var wg = sync.WaitGroup{}
+
+func main() {
+	ch := make(chan int, 50) //50-internal data store
+	wg.Add(2)
+	go func(ch <-chan int) { //receive data to channel
+		i := <-ch
+		fmt.Println(i)
+		i = <-ch
+		fmt.Println(i)
+		wg.Done()
+	}(ch)
+	go func(ch chan<- int) { //send data to channel
+		ch <- 42
+		ch <- 27
+		wg.Done()
+	}(ch)
+	wg.Wait()
+}
+
+Example-3
+
+package main
+
+import (
+	"fmt"
+	"sync"
+)
+
+var wg = sync.WaitGroup{}
+
+func main() {
+	ch := make(chan int, 50) //50-internal data store
+	wg.Add(2)
+	go func(ch <-chan int) { //receive data to channel
+		for i := range ch {
+			fmt.Println(i)
+		}
+		wg.Done()
+	}(ch)
+	go func(ch chan<- int) { //send data to channel
+		ch <- 42
+		ch <- 27
+		close(ch)
+		wg.Done()
+	}(ch)
+	wg.Wait()
+}
+
+
+Example-4
+package main
+
+import (
+	"fmt"
+	"sync"
+)
+
+var wg = sync.WaitGroup{}
+
+func main() {
+	ch := make(chan int, 50) //50-internal data store
+	wg.Add(2)
+	go func(ch <-chan int) { //receive data to channel
+		for {
+			if i, ok := <-ch; ok {
+				fmt.Println(i)
+			} else {
+				break
+			}
+		}
+		wg.Done()
+	}(ch)
+	go func(ch chan<- int) { //send data to channel
+		ch <- 42
+		close(ch)
+		ch <- 27
+		close(ch)
+		wg.Done()
+	}(ch)
+	wg.Wait()
+}
+
+Channels with goroutine
+
+package main
+
+import (
+	"fmt"
+)
+
+func digit(number int, dchnl chan int) {
+	for number != 0 {
+		digit := number % 10
+		dchnl <- digit
+		number /= 10
+	}
+	close(dchnl)
+}
+
+func squrch(number int, squareop chan int) {
+	sum := 0
+	dch := make(chan int)
+	go digit(number, dch)
+	for digit := range dch {
+		sum += digit * digit
+	}
+	squareop <- sum
+
+}
+func cubech(number int, cubeop chan int) {
+	sum := 0
+	dch := make(chan int)
+	go digit(number, dch)
+	for digit := range dch {
+		sum += digit * digit * digit
+	}
+	cubeop <- sum
+
+}
+
+func main() {
+	number := 567
+	ch1 := make(chan int)
+	ch2 := make(chan int)
+	go squrch(number, ch1)
+	go cubech(number, ch2)
+	squares, cubes := <-ch1, <-ch2
+	fmt.Println("Final output", squares+cubes)
+
+}
+---------------------------------------------------------------------------------------------
+Buffered Channels
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func write(ch chan int) {
+	for i := 0; i < 5; i++ {
+		ch <- i
+		fmt.Println("successfully wrote", i, "to ch")
+	}
+	close(ch)
+}
+func main() {
+	ch := make(chan int, 2)
+	go write(ch)
+	time.Sleep(2 * time.Second)
+	for v := range ch {
+		fmt.Println("read value", v, "from ch")
+		time.Sleep(2 * time.Second)
+
+	}
+}
+----------------------------------------------------------------------------
+Select 
+
+The select statement is used to choose from multiple send/receive channel operations. 
+The select statement blocks until one of the send/receive operations is ready. 
+If multiple operations are ready, one of them is chosen at random. 
+The syntax is similar to switch except that each of the case statements will be a channel operation.
+package main
+
+import (  
+    "fmt"
+    "time"
+)
+
+func server1(ch chan string) {  
+    time.Sleep(6 * time.Second)
+    ch <- "from server1"
+}
+func server2(ch chan string) {  
+    time.Sleep(3 * time.Second)
+    ch <- "from server2"
+
+}
+func main() {  
+    output1 := make(chan string)
+    output2 := make(chan string)
+    go server1(output1)
+    go server2(output2)
+    select {
+    case s1 := <-output1:
+        fmt.Println(s1)
+    case s2 := <-output2:
+        fmt.Println(s2)
+    }
+}
+----------------------------------------------------------------
+Program with a race condition
+
+package main  
+import (  
+    "fmt"
+    "sync"
+    )
+var x  = 0  
+func increment(wg *sync.WaitGroup) {  
+    x = x + 1
+    wg.Done()
+}
+func main() {  
+    var w sync.WaitGroup
+    for i := 0; i < 1000; i++ {
+        w.Add(1)        
+        go increment(&w)
+    }
+    w.Wait()
+    fmt.Println("final value of x", x)
+}
+
+Solving the race condition using a mutex
+
+package main
+
+import (
+	"fmt"
+	"sync"
+)
+
+var x = 0
+
+func increment(wg *sync.WaitGroup, mg *sync.Mutex) {
+	mg.Lock()
+	x = x + 1
+	mg.Unlock()
+	wg.Done()
+}
+func main() {
+	var w sync.WaitGroup
+	var m sync.Mutex
+	for i := 0; i < 1000; i++ {
+		w.Add(1)
+		go increment(&w, &m)
+	}
+	w.Wait()
+	fmt.Println("final value of x", x)
+}
+	
+Solving the race condition using channel
+
+package main  
+import (  
+    "fmt"
+    "sync"
+    )
+var x  = 0  
+func increment(wg *sync.WaitGroup, ch chan bool) {  
+    ch <- true
+    x = x + 1
+    <- ch
+    wg.Done()   
+}
+func main() {  
+    var w sync.WaitGroup
+    ch := make(chan bool, 1)
+    for i := 0; i < 1000; i++ {
+        w.Add(1)        
+        go increment(&w, ch)
+    }
+    w.Wait()
+    fmt.Println("final value of x", x)
+}
+
+In general use channels when Goroutines need to communicate with each other and
+mutexes when only one Goroutine should access the critical section of code.
+
+----------------------------------------------------------------------------------------------------
+Composition instead of inheritance
+
+package main
+
+import (
+	"fmt"
+)
+
+type author struct {
+	firstName string
+	lastName  string
+	bio       string
+}
+
+func (a author) fullName() string {
+	return fmt.Sprintf("%s %s", a.firstName, a.lastName)
+}
+
+type blogPost struct {
+	title   string
+	content string
+	author
+}
+
+func (b blogPost) details() {
+	fmt.Println("Title: ", b.title)
+	fmt.Println("Content: ", b.content)
+	fmt.Println("Author: ", b.fullName())
+	fmt.Println("Bio: ", b.bio)
+}
+
+func main() {
+	author1 := author{
+		"Naveen",
+		"Ramanathan",
+		"Golang Enthusiast",
+	}
+	blogPost1 := blogPost{
+		"Inheritance in Go",
+		"Go supports composition instead of inheritance",
+		author1,
+	}
+	blogPost1.details()
+}
+
+Embedding slice of structs
+
+
+syntax:
+
+type structname struct {  
+    array_ref_name []arrayname
+}
+
+main(){
+
+    w := structname{
+        array_ref_name: []arrayname{blogPost1, blogPost2, blogPost3},
+    }
+}
+-------------------------------------------------------------------
+Code:
+
+package main
+
+import (  
+    "fmt"
+)
+
+type author struct {  
+    firstName string
+    lastName  string
+    bio       string
+}
+
+func (a author) fullName() string {  
+    return fmt.Sprintf("%s %s", a.firstName, a.lastName)
+}
+
+type blogPost struct {  
+    title   string
+    content string
+    author
+}
+
+func (p blogPost) details() {  
+    fmt.Println("Title: ", p.title)
+    fmt.Println("Content: ", p.content)
+    fmt.Println("Author: ", p.fullName())
+    fmt.Println("Bio: ", p.bio)
+}
+
+type website struct {  
+    blogPosts []blogPost
+}
+
+func (w website) contents() {  
+    fmt.Println("Contents of Website\n")
+    for _, v := range w.blogPosts {
+        v.details()
+        fmt.Println()
+    }
+}
+
+func main() {  
+    author1 := author{
+        "Naveen",
+        "Ramanathan",
+        "Golang Enthusiast",
+    }
+    blogPost1 := blogPost{
+        "Inheritance in Go",
+        "Go supports composition instead of inheritance",
+        author1,
+    }
+    blogPost2 := blogPost{
+        "Struct instead of Classes in Go",
+        "Go does not support classes but methods can be added to structs",
+        author1,
+    }
+    blogPost3 := blogPost{
+        "Concurrency",
+        "Go is a concurrent language and not a parallel one",
+        author1,
+    }
+    w := website{
+        blogPosts: []blogPost{blogPost1, blogPost2, blogPost3},
+    }
+    w.contents()
+}
+
+--------------------------------------------------------------------------------------------
+Polymorphism
+
+package main
+
+import (
+	"fmt"
+)
+
+type Income interface {
+	calculate() int
+	source() string
+}
+
+type FixedBilling struct {
+	projectName  string
+	biddedAmount int
+}
+
+type TimeAndMaterial struct {
+	projectName string
+	noOfHours   int
+	hourlyRate  int
+}
+
+type Advertisement struct {
+	adName     string
+	CPC        int
+	noOfClicks int
+}
+
+func (fb FixedBilling) calculate() int {
+	return fb.biddedAmount
+}
+
+func (fb FixedBilling) source() string {
+	return fb.projectName
+}
+
+func (tm TimeAndMaterial) calculate() int {
+	return tm.noOfHours * tm.hourlyRate
+}
+
+func (tm TimeAndMaterial) source() string {
+	return tm.projectName
+}
+
+func (a Advertisement) calculate() int {
+	return a.CPC * a.noOfClicks
+}
+
+func (a Advertisement) source() string {
+	return a.adName
+}
+
+func calculateNetIncome(ic []Income) {
+	var netincome int = 0
+	for _, income := range ic {
+		fmt.Printf("Income From %s = $%d\n", income.source(), income.calculate())
+		netincome += income.calculate()
+	}
+	fmt.Printf("Net income of organization = $%d", netincome)
+}
+
+func main() {
+	project1 := FixedBilling{projectName: "Project 1", biddedAmount: 5000}
+	project2 := FixedBilling{projectName: "Project 2", biddedAmount: 10000}
+	project3 := TimeAndMaterial{projectName: "Project 3", noOfHours: 160, hourlyRate: 25}
+	bannerAd := Advertisement{adName: "Banner Ad", CPC: 2, noOfClicks: 500}
+	popupAd := Advertisement{adName: "Popup Ad", CPC: 5, noOfClicks: 750}
+	incomeStreams := []Income{project1, project2, project3, bannerAd, popupAd}
+	calculateNetIncome(incomeStreams)
+}
+--------------------------------------------------------------------------------------------
+Defer Statement
+Defer statement is used to execute a function call just before the surrounding function where the defer statement is present returns.
+
+package main
+
+import (  
+    "fmt"
+)
+
+func finished() {  
+    fmt.Println("Finished finding largest")
+}
+
+func largest(nums []int) {  
+    defer finished()    
+    fmt.Println("Started finding largest")
+    max := nums[0]
+    for _, v := range nums {
+        if v > max {
+            max = v
+        }
+    }
+    fmt.Println("Largest number in", nums, "is", max)
+}
+
+func main() {  
+    nums := []int{78, 109, 2, 563, 300}
+    largest(nums)
+}
+
+Defer is used in places where a function call should be executed irrespective of the code flow
+
+The WaitGroup wg is used to ensure that the main function is blocked until all Goroutines finish executing. 
+-------------------------------------
+
+first-class-functions
+A language that supports first class functions allows functions to be assigned to variables, 
+passed as arguments to other functions and returned from other functions. 
+Go has support for first class functions
+
+higher-order functions
+
+The definition of Higher-order function from wiki is a function which does at least one of the following
+
+takes one or more functions as arguments
+returns a function as its result
+
+Closures
+package main
+
+import (  
+    "fmt"
+)
+
+func main() {  
+    a := 5
+    func() {
+        fmt.Println("a =", a)
+    }()
+}
+		
+
+
+
+
