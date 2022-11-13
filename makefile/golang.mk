@@ -80,7 +80,7 @@ define COMPRESS_COMMAND
 	--rm \
 	-w $(BASE_DIR) \
 	-v $(BASE_DIR):$(BASE_DIR) \
-	34.194.193.152:5000/upx:latest \
+	upx:latest \
 	--best \
 	--lzma \
 	-f
